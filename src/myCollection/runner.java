@@ -1,9 +1,7 @@
 package myCollection;
 
 
-
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class runner {
@@ -11,82 +9,88 @@ public class runner {
         IdentityHashMap<Integer, User> Users = new IdentityHashMap<>();
 
         User Ram = new User(User.incId,"Ram","Fatykhov","Ildusovich",
-                "22.08.1989",34,"Moscow");
+                "22.08.1989","Moscow");
         User Zilya = new User(User.incId,"Zilya","Fatykhova","Linarovna",
-                "26.02.1992",30,"Kazan");
+                "26.02.1992","Kazan");
+        User Leila = new User(User.incId,"Leila","Fatykhova","Ramilevna",
+                "08.10.2015","Kazan");
+
         Users.put(Ram.getId(),Ram);
         Users.put(Zilya.getId(),Zilya);
+        Users.put(Leila.getId(),Leila);
 
-        //selectSomeUsers(Users,1,1);
-        selectSomeUsers(Users,"Ram");
-        //showCityList(Users);
-
-
-
+        /*
+        selectUsers(Users,1,1);
+        selectUsers(Users,"Ram");
+        showCityList(Users);
+        selectAllUsers(Users);
+        System.out.println(Users.get(1).getBirthDay());
+         */
+        //System.out.println(Users.get(2).getBirthDay());
+        //Ram.calculateAge();
+       //selectAllUsers(Users);
+       selectUsers(Users,2,5);
 
     }
 
 
-    public static void selectAllUsers(IdentityHashMap<Integer,User> Users)
+    // O(n)
+    public static void selectAllUsers(Map<Integer,User> Users)
     {
         for (Map.Entry<Integer, User> entry:Users.entrySet()) {
-            System.out.print(entry.getKey() + ":");
             System.out.println(entry.getValue());
         }
     }
 
 
-    public static void selectSomeUsers(IdentityHashMap<Integer,User> Users,int start,int end)
+    //O(1)
+    public static void selectUsers(Map<Integer,User> Users,int startId,int endId)
     {
-        IntStream intStream = IntStream.range(start, end + 1);
-        List<Integer> list = intStream.boxed().toList();
-
-        for (Map.Entry<Integer, User> entry:Users.entrySet()) {
-            if( list.contains(entry.getKey())) {
-                System.out.print(entry.getKey() + ":");
-                System.out.println(entry.getValue());
+        for (int i = startId; i <= endId ; i++) {
+            if(Users.containsKey(i)) {
+                System.out.println(Users.get(i).toString());
             }
-
         }
     }
 
 
-    public static void selectSomeUsers(IdentityHashMap<Integer,User> Users,String substring) {
+    public static void selectUsers(Map<Integer,User> Users,String substring) {
         String template = ".*"+ substring +".*";
 
         for (Map.Entry<Integer, User> entry:Users.entrySet()) {
-            if(entry.getValue().lastName.matches(template)) {
+            if(entry.getValue().getLastName().matches(template)) {
                 System.out.print("Founded user: ");
                 System.out.println(entry.getValue());
             }
-            else if(entry.getValue().name.matches(template)) {
+            else if(entry.getValue().getName().matches(template)) {
                 System.out.print("Founded user: ");
                 System.out.println(entry.getValue());
             }
-            else if(entry.getValue().surName.matches(template)) {
+            else if(entry.getValue().getSurName().matches(template)) {
                 System.out.print("Founded user: ");
                 System.out.println(entry.getValue());
             }
-
-
         }
     }
 
-    public static void showCityList(IdentityHashMap<Integer,User> Users) {
+    public static void showCityList(Map<Integer,User> Users) {
         List<String> cities = new ArrayList<>();
+        // можно занести в Set и перебрать в нем
         for (Map.Entry<Integer, User> entry:Users.entrySet()) {
-            if (!cities.contains(entry.getValue().city))
-                 cities.add(entry.getValue().city);
+            if (!cities.contains(entry.getValue().getCity()))
+                 cities.add(entry.getValue().getCity());
             }
+        System.out.print("Cities in collection: ");
         for (String city : cities) {
-            System.out.print(city + " ");
+            if(cities.indexOf(city) == (cities.size() - 1)) {
+                System.out.print(city + ".");
+            }
+            else {
+                System.out.print(city + ", ");
+            }
         }
+        System.out.println();
     }
-
-
-
-
-
 
 
 }
