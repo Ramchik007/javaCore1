@@ -18,8 +18,9 @@ public class runner {
         Users.put(Zilya.getId(),Zilya);
 
         //selectSomeUsers(Users,1,1);
-        //selectSomeUsers(Users,"Fat");
-        showCityList(Users);
+        selectSomeUsers(Users,"Ram");
+        //showCityList(Users);
+
 
 
 
@@ -50,14 +51,24 @@ public class runner {
     }
 
 
-    public static void selectSomeUsers(IdentityHashMap<Integer,User> Users,String lastName) {
-        String template = ".*"+ lastName +".*";
+    public static void selectSomeUsers(IdentityHashMap<Integer,User> Users,String substring) {
+        String template = ".*"+ substring +".*";
 
         for (Map.Entry<Integer, User> entry:Users.entrySet()) {
             if(entry.getValue().lastName.matches(template)) {
                 System.out.print("Founded user: ");
                 System.out.println(entry.getValue());
             }
+            else if(entry.getValue().name.matches(template)) {
+                System.out.print("Founded user: ");
+                System.out.println(entry.getValue());
+            }
+            else if(entry.getValue().surName.matches(template)) {
+                System.out.print("Founded user: ");
+                System.out.println(entry.getValue());
+            }
+
+
         }
     }
 
