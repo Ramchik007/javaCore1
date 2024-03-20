@@ -1,4 +1,4 @@
-package OOP_JAVA.myCollection;
+package myCollection;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
