@@ -2,11 +2,11 @@ package myCollection;
 
 
 import java.util.*;
-import java.util.stream.IntStream;
 
-public class runner {
+public class Runner {
     public static void main(String[] args) {
-        IdentityHashMap<Integer, User> Users = new IdentityHashMap<>();
+        HashMap<Integer, User> Users = new HashMap<>();
+        //реализовать добавление из файла в цикле
 
         User Ram = new User(User.incId,"Ram","Fatykhov","Ildusovich",
                 "22.08.1989","Moscow");
@@ -19,17 +19,17 @@ public class runner {
         Users.put(Zilya.getId(),Zilya);
         Users.put(Leila.getId(),Leila);
 
-        /*
-        selectUsers(Users,1,1);
-        selectUsers(Users,"Ram");
+
+        selectUsers(Users,1,2);
+        System.out.println();
+
+        selectUsers(Users,"ram");
+        System.out.println();
+
         showCityList(Users);
+        System.out.println();
+
         selectAllUsers(Users);
-        System.out.println(Users.get(1).getBirthDay());
-         */
-        //System.out.println(Users.get(2).getBirthDay());
-        //Ram.calculateAge();
-       //selectAllUsers(Users);
-       selectUsers(Users,2,5);
 
     }
 
@@ -43,7 +43,7 @@ public class runner {
     }
 
 
-    //O(1)
+    //O(n)
     public static void selectUsers(Map<Integer,User> Users,int startId,int endId)
     {
         for (int i = startId; i <= endId ; i++) {
@@ -53,26 +53,27 @@ public class runner {
         }
     }
 
-
+     //O(n)
     public static void selectUsers(Map<Integer,User> Users,String substring) {
         String template = ".*"+ substring +".*";
 
         for (Map.Entry<Integer, User> entry:Users.entrySet()) {
-            if(entry.getValue().getLastName().matches(template)) {
+            if(entry.getValue().getLastName().toLowerCase().matches(template.toLowerCase())) {
                 System.out.print("Founded user: ");
                 System.out.println(entry.getValue());
             }
-            else if(entry.getValue().getName().matches(template)) {
+            else if(entry.getValue().getName().toLowerCase().matches(template.toLowerCase())) {
                 System.out.print("Founded user: ");
                 System.out.println(entry.getValue());
             }
-            else if(entry.getValue().getSurName().matches(template)) {
+            else if(entry.getValue().getSurName().toLowerCase().matches(template.toLowerCase())) {
                 System.out.print("Founded user: ");
                 System.out.println(entry.getValue());
             }
         }
     }
 
+    //O(n+n)
     public static void showCityList(Map<Integer,User> Users) {
         List<String> cities = new ArrayList<>();
         // можно занести в Set и перебрать в нем
@@ -91,6 +92,5 @@ public class runner {
         }
         System.out.println();
     }
-
 
 }
